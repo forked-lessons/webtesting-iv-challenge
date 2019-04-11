@@ -17,17 +17,37 @@ async function insert(user) {
 }
 
 async function update(id, changes) {
-  return null;
+  return await db('users')
+    .where({ id })
+    .update(req.body)
+    .then(count => {
+      if (count > 0) {
+        resizeBy.status(200).json({ message: 'Record not found' });
+      } else {
+        resizeBy.status(500).json(error);
+      }
+    });
 }
 
 function remove(id) {
-  return null;
+  db('users')
+    .where({ id })
+    .del()
+    .then(count => {
+      if (count > 0) {
+        res.status(204).end();
+      } else {
+        res.status(404).json({ message: 'Record not found' });
+      }
+    });
 }
 
 function getAll() {
-  return db('users');
+  return db('users').select('id', 'name');
 }
 
 function findById(id) {
-  return null;
+  return db('users')
+    .where({ id })
+    .first();
 }

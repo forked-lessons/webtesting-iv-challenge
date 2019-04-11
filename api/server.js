@@ -1,4 +1,5 @@
 const express = require('express');
+const usersRouter = require('../usersRoute');
 
 const users = require('../users/usersModel');
 
@@ -10,10 +11,5 @@ server.get('/', async (req, res) => {
   res.status(200).json({ api: 'up' });
 });
 
-server.get('/users', async (req, res) => {
-  const rows = await users.getAll();
-
-  res.status(200).json(rows);
-});
-
+router.use();
 module.exports = server;
